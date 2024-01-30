@@ -7,10 +7,12 @@ class Account:
     def create_account(self,obj, account_type):
         dict = {}
         dict["name"] = input("Enter your name : ")
+        dict["gender"] = input("Enter your gender : ")
+        dict["birth_date"] = input("Enter your date of birth : ")
         dict["number"] = input("Enter your phone number : ")
         dict["address"] = input("Enter your address : ")
         dict["creation_date"] = datetime.date.today()
-        balance = int(input("You have to deposite some money for creating this account.Money value must be grater than 10 dollar.Enter the value : "))
+        balance = int(input("You have to deposite some money for creating this account.Money value must be greater than 10 dollar.Enter the value : "))
         dict["balance"] = balance
         print()
 
@@ -75,6 +77,22 @@ class Account:
                 del self.bank_record_list[type][i]
                 break
 
+    def __deposit(self, value, account_type, account_number):
+        if account_type == "current":
+            type = 0
+        elif account_type == "salary":
+            type = 1
+        else:
+            type = 2
+
+        size = len(self.bank_record_list[type])
+        for i in range(size):
+            if self.bank_record_list[type][i]["Account Number"] == account_number:
+                self.bank_record_list[type][i]["balance"]+=value
+                break 
+
+
+
         
 
 class Current_Account(Account):
@@ -114,14 +132,14 @@ if __name__ == "__main__":
                 objSavingAccount.create_account(objAccount, "saving")
         
         elif operation == 2:
-            account_numbers = list(map(int, input("Please enter your Current account,Salary account and Saving account number respectly(if you don't have any account one of them enter -1 in that position): ").split()))
+            account_numbers = list(map(int, input("Please enter your Current account,Salary account and Saving account number respectively(if you don't have any account one of them enter -1 in that position): ").split())) # enter 2(if account id is 2 then space) -1 -1(-1 no account)u have to enter three digit one after another with space 2 1 2 or 1 -1 -1
             objAccount._Account__display_all_accounts(account_numbers)
 
         elif operation == 3:
             print("Before")
             print(objAccount.bank_record_list)
             print()
-            account_numbers = list(map(int, input("Please enter your Current account,Salary account and Saving account number respectly(if you don't have any account one of them enter -1 in that position): ").split()))
+            account_numbers = list(map(int, input("Please enter your Current account,Salary account and Saving account number respectively(if you don't have any account one of them enter -1 in that position(Ex 2 -1 -1)): ").split())) # enter 2(if account id is 2 then space) -1 -1(-1 no account)u have to enter three digit one after another with space 2 1 2 or 1 -1 -1
             while True:
                 key = input("Enter what do you change (name or address or phone number)(if you are not interested to change enter 0) : ")
                 if key == '0':
@@ -147,11 +165,17 @@ if __name__ == "__main__":
             print("Before Delete")
             print(objAccount.bank_record_list)
             print()
-            account_type = input("Enter the account type which you want to delete(Ex : Current/Salay/Saving) : ")
+            account_type = input("Enter the account type which you want to delete(Type : Current/Salay/Saving) : ")
             account_number = int(input("Enter the account number you want to delete : "))
             objAccount._Account__delete_account(account_type.lower(), account_number)
             print("After Delete")
             print(objAccount.bank_record_list)
+        
+        elif operation == 5:
+            value = int(input("How much money you want to deposit : "))
+            account_type = input("In which account you want to deposit(Type Current/Saving/Salary) : ")
+            account_number = int(input("Enter your account number : "))
+            objAccount._Account__deposit(value, account_type.lower(), account_number)
 
 
         
