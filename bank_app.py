@@ -62,6 +62,19 @@ class Account:
         if account_numbers[2]!=-1:
             individual(2, account_numbers[2])
 
+    def __delete_account(self, account_type, account_number):
+        if account_type == "current":
+            type = 0
+        elif account_type == "salary":
+            type = 1
+        else:
+            type = 2
+        size = len(self.bank_record_list[type])
+        for i in range(size):
+            if self.bank_record_list[type][i]["Account Number"] == account_number:
+                del self.bank_record_list[type][i]
+                break
+
         
 
 class Current_Account(Account):
@@ -129,6 +142,16 @@ if __name__ == "__main__":
                 print("After")
                 print(objAccount.bank_record_list)
                 print()
+        
+        elif operation == 4:
+            print("Before Delete")
+            print(objAccount.bank_record_list)
+            print()
+            account_type = input("Enter the account type which you want to delete(Ex : Current/Salay/Saving) : ")
+            account_number = int(input("Enter the account number you want to delete : "))
+            objAccount._Account__delete_account(account_type.lower(), account_number)
+            print("After Delete")
+            print(objAccount.bank_record_list)
 
 
         
