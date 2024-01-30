@@ -2,14 +2,14 @@ import datetime
 
 class Account:
     def __init__(self):
-        self.bank_record_list = [[],[],[]] #first list is for current accounts,2nd is for salary accounts, 3rd is for saving accounts
+        self.bank_record_list = [[],[],[]] #Inside a list,first list is for current accounts,2nd is for salary accounts, 3rd is for saving accounts
 
     def create_account(self,obj, account_type):
         dict = {}
         dict["name"] = input("Enter your name : ")
         dict["number"] = input("Enter your phone number : ")
         dict["creation_date"] = datetime.date.today()
-        balance = int(input("You have to deposite some money for creating this account.Money value must be grater than 10 dolar.Enter the value : "))
+        balance = int(input("You have to deposite some money for creating this account.Money value must be grater than 10 dollar.Enter the value : "))
         dict["balance"] = balance
 
         if account_type == "current":
@@ -27,6 +27,23 @@ class Account:
             Saving_Account_number+=1
             dict["Account Number"] = Saving_Account_number
             obj.bank_record_list[2].append(dict)
+
+    def __display_all_accounts(self, account_numbers):
+        def individual(type,number, name):
+            size = len(self.bank_record_list[type])
+            for i in range(size):
+                for k, v in self.bank_record_list[type][i].items():
+                    if k == "Account Number" and v == number:
+                        print(name, "Details : ")
+                        print(self.bank_record_list[type][i])
+                        break
+        if account_numbers[0]!=-1:
+            individual(0, account_numbers[0], "Current_Account")
+        if account_numbers[1]!=-1:
+            individual(1, account_numbers[1], "Salary_Account")
+        if account_numbers[2]!=-1:
+            individual(2, account_numbers[2], "Saving_Account")
+        
 
 class Current_Account(Account):
     pass
@@ -56,7 +73,7 @@ if __name__ == "__main__":
             if account_type == 1:
                 objCurrentAccount.create_account(objAccount, "current")
             elif account_type == 2:
-                check = input("Are you an employ?Type YES or NO :")
+                check = input("Are you an employ?Type YES or NO : ")
                 if check.lower() == 'yes':
                     objSalaryAccount.create_account(objAccount, "salary")
                 else:
@@ -64,7 +81,10 @@ if __name__ == "__main__":
             else:
                 objSavingAccount.create_account(objAccount, "saving")
         
+        elif operation == 2:
+            account_numbers = list(map(int, input("Please enter your Current,Salary and Saving account number respectly(if you don't have any account one of them enter -1 in that position): ").split()))
+            objAccount._Account__display_all_accounts(account_numbers)
+        
         print()
-    print(objAccount.bank_record_list)
 
             
