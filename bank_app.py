@@ -37,11 +37,10 @@ class Account:
         def individual(type,number, name):
             size = len(self.bank_record_list[type])
             for i in range(size):
-                for k, v in self.bank_record_list[type][i].items():
-                    if k == "Account Number" and v == number:
-                        print(name, "Details : ")
-                        print(self.bank_record_list[type][i])
-                        break
+                if self.bank_record_list[type][i]["Account Number"] == number:
+                    print(name, "Details : ")
+                    print(self.bank_record_list[type][i])
+                    break
         if account_numbers[0]!=-1:
             individual(0, account_numbers[0], "Current_Account")
         if account_numbers[1]!=-1:
@@ -53,10 +52,9 @@ class Account:
         def individual(type,number):
             size = len(self.bank_record_list[type])
             for i in range(size):
-                for k, v in self.bank_record_list[type][i].items():
-                    if k == "Account Number" and v == number:
-                        self.bank_record_list[type][i][key] = value
-                        break
+                if self.bank_record_list[type][i]["Account Number"] == number:
+                    self.bank_record_list[type][i][key] = value
+                    break
         if account_numbers[0]!=-1:
             individual(0, account_numbers[0])
         if account_numbers[1]!=-1:
