@@ -111,6 +111,28 @@ class Account:
                 else:
                     self.bank_record_list[type][i]["balance"]-= value
                 break
+    
+    def __search_account(self, account_type, account_number):
+        if account_type == "current":
+            type = 0
+        elif account_type == "salary":
+            type = 1
+        else:
+            type = 2
+
+        size = len(self.bank_record_list[type])
+        for i in range(size):
+            if self.bank_record_list[type][i]["Account Number"] == account_number:
+                print()
+                if type == 0:
+                    print("Your Current account details is : ")
+                elif type == 1:
+                    print("Your Salary account details is : ")
+                else:
+                    print("Your Saving account details is : ")
+                print(self.bank_record_list[type][i])
+                break
+
 
 
 
@@ -203,6 +225,11 @@ if __name__ == "__main__":
             account_type = input("From which account you want to withdraw(Type Current/Saving/Salary) : ")
             account_number = int(input("Enter your account number : "))
             objAccount._Account__withdraw(value, account_type.lower(), account_number)
+
+        elif operation == 7:
+            account_type = input("Which type account you want to serach(Type Current/Saving/Salary) : ")
+            account_number = int(input("Enter your account number : "))
+            objAccount._Account__search_account(account_type.lower(), account_number)
 
 
         
