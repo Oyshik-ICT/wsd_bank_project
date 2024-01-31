@@ -90,10 +90,31 @@ class Account:
             if self.bank_record_list[type][i]["Account Number"] == account_number:
                 self.bank_record_list[type][i]["balance"]+=value
                 break 
+    
+    def __withdraw(self, value, account_type, account_number):
+        if account_type == "current":
+            type = 0
+        elif account_type == "salary":
+            type = 1
+        else:
+            type = 2
+
+        size = len(self.bank_record_list[type])
+        for i in range(size):
+            if self.bank_record_list[type][i]["Account Number"] == account_number:
+                if self.bank_record_list[type][i]["balance"] - value <= 0:
+                    print()
+                    print("Insufficient funds for withdrawal.")
+                elif self.bank_record_list[type][i]["balance"] - value <= 20:
+                    print()
+                    print("Maintain a minimum balance of 10 dollar and withdraw an amount greater than your current withdrawal.")
+                else:
+                    self.bank_record_list[type][i]["balance"]-= value
+                break
 
 
 
-        
+
 
 class Current_Account(Account):
     pass
@@ -176,6 +197,12 @@ if __name__ == "__main__":
             account_type = input("In which account you want to deposit(Type Current/Saving/Salary) : ")
             account_number = int(input("Enter your account number : "))
             objAccount._Account__deposit(value, account_type.lower(), account_number)
+        
+        elif operation == 6:
+            value = int(input("How much money do you withdraw : "))
+            account_type = input("From which account you want to withdraw(Type Current/Saving/Salary) : ")
+            account_number = int(input("Enter your account number : "))
+            objAccount._Account__withdraw(value, account_type.lower(), account_number)
 
 
         
