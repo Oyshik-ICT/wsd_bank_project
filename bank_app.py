@@ -105,7 +105,7 @@ class Account:
                 if self.bank_record_list[type][i]["balance"] - value <= 0:
                     print()
                     print("Insufficient funds for withdrawal.")
-                elif self.bank_record_list[type][i]["balance"] - value <= 20:
+                elif self.bank_record_list[type][i]["balance"] - value <= 10:
                     print()
                     print("Maintain a minimum balance of 10 dollar and withdraw an amount greater than your current withdrawal.")
                 else:
