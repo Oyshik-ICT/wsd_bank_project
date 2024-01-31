@@ -1,1 +1,1 @@
-# This is a simple bank application project
+# This is a simple bank application project.All input given by the user is considered to be okay.
